@@ -10,4 +10,4 @@ val Purple40 = Color(0xFF6650a4)
 val PurpleGrey40 = Color(0xFF625b71)
 val Pink40 = Color(0xFF7D5260)
 
-val CorTopBar = Color(0xFF26A1DA)
+val CorDeTitulo = Color(0xFF26A1DA)
