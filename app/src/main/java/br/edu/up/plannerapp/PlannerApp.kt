@@ -30,30 +30,31 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import br.edu.up.plannerapp.ui.screens.TelaDois
-import br.edu.up.plannerapp.ui.screens.TelaPrincipalA
-import br.edu.up.plannerapp.ui.screens.TelaPrincipalB
-import br.edu.up.plannerapp.ui.screens.TelaTres
+import br.edu.up.plannerapp.ui.screens.projetos.TelaProjetos
+import br.edu.up.plannerapp.ui.screens.financas.TelaFinancas
+import br.edu.up.plannerapp.ui.screens.tarefas.TarefasNavHost
 import kotlinx.coroutines.launch
 
 object PlannerRotas {
-    val TelaPrincipalA = "principal"
-    val Tela2= "dois"
-    val Tela3 = "tres"
+    val TELA_TAREFAS = "tarefas"
+    val TELA_PROJETOS = "projetos"
+    val TELA_FINANCAS = "financas"
 }
 
 @Preview
 @Composable
-fun PlannerApp() {
+fun PlannerNavDrawer() {
 
     val state = rememberDrawerState(initialValue = DrawerValue.Closed)
     val coroutineScope = rememberCoroutineScope()
+
     val navController = rememberNavController()
     val currentBack by navController.currentBackStackEntryAsState()
-    val rotaAtual = currentBack?.destination?.route ?: PlannerRotas.TelaPrincipalA
-    val telaPrincipalSelect = rotaAtual == PlannerRotas.TelaPrincipalA
-    val telaDoisSelect = rotaAtual == PlannerRotas.Tela2
-    val telaTresSelect = rotaAtual == PlannerRotas.Tela3
+    val rotaAtual = currentBack?.destination?.route ?: PlannerRotas.TELA_TAREFAS
+
+    val telaTarefasSelect = rotaAtual == PlannerRotas.TELA_TAREFAS
+    val telaProjetosSelect = rotaAtual == PlannerRotas.TELA_PROJETOS
+    val telaFinancasSelect = rotaAtual == PlannerRotas.TELA_FINANCAS
 
     ModalNavigationDrawer(
         drawerState = state,
@@ -62,69 +63,83 @@ fun PlannerApp() {
                 modifier = Modifier
                     .width(300.dp)
                     .fillMaxHeight()
-                    .background(Color(0xFF59B7FF)),
+                    .background(Color(0xFFC0E0FA)),
             ) {
                 Spacer(modifier = Modifier.height(70.dp))
-                TextButton(
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = getBack(telaPrincipalSelect)
-                    ),
-                        onClick = {
-                        navController.navigate(PlannerRotas.TelaPrincipalA)
-                        coroutineScope.launch { state.close() }
-                    }) {
-                        Icon(painter = painterResource(id = R.drawable.checklist),
-                            contentDescription = "D",
-                            modifier = Modifier.size(40.dp),
-                            tint = getTint(telaPrincipalSelect)
-                        )
-                        Text(
-                            color = getTint(telaPrincipalSelect),
-                            text = "Tela Principal", fontSize = 30.sp,
-                            modifier = Modifier.padding(30.dp, 5.dp)
-                        )
-                }
-                TextButton(
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = getBack(telaDoisSelect)
-                    ),
+
+                TextButton( colors = ButtonDefaults.buttonColors(
+                    containerColor = getBack(telaTarefasSelect)
+                ),
                     onClick = {
-                    navController.navigate(PlannerRotas.Tela2)
+                    navController.navigate(PlannerRotas.TELA_TAREFAS)
                     coroutineScope.launch { state.close() }
                 }) {
-                    Icon(painter = painterResource(id = R.drawable.checklist),
-                        contentDescription = "D",
+                    
+                    Icon(
+                        //imageVector = Icons.Filled.DateRange,
+                        painter = painterResource(id = R.drawable.checklist),
+                        contentDescription = "d",
                         modifier = Modifier.size(40.dp),
-                        tint = getTint(telaDoisSelect)
-                    )
+                        tint = getTint(telaTarefasSelect))
+                    
                     Text(
-                        color = getTint(telaDoisSelect),
-                        text = "Tela Dois", fontSize = 30.sp,
+                        color = getTint(telaTarefasSelect),
+                        text = "Tarefas", fontSize = 30.sp,
                         modifier = Modifier.padding(30.dp, 5.dp)
                     )
                 }
+
                 TextButton(
                     colors = ButtonDefaults.buttonColors(
-                        containerColor = getBack(telaTresSelect)
+                        containerColor = getBack(telaProjetosSelect)
                     ),
                     onClick = {
-                    navController.navigate(PlannerRotas.Tela3)
+                    navController.navigate(PlannerRotas.TELA_PROJETOS)
                     coroutineScope.launch { state.close() }
                 }) {
-                    Icon(painter = painterResource(id = R.drawable.checklist),
-                        contentDescription = "D",
+
+                    Icon(
+                        //imageVector = Icons.Filled.DateRange,
+                        painter = painterResource(id = R.drawable.checklist),
+                        contentDescription = "d",
                         modifier = Modifier.size(40.dp),
-                        tint = getTint(telaTresSelect)
-                    )
+                        tint = getTint(telaProjetosSelect))
+
                     Text(
-                        color = getTint(telaTresSelect),
-                        text = "Tela Três", fontSize = 30.sp,
+                        color = getTint(telaProjetosSelect),
+                        text = "Projetos", fontSize = 30.sp,
+                        modifier = Modifier.padding(30.dp, 5.dp)
+                    )
+                }
+
+
+                TextButton( colors = ButtonDefaults.buttonColors(
+                    containerColor = getBack(telaFinancasSelect)
+                    ),
+                    onClick = {
+                    navController.navigate(PlannerRotas.TELA_FINANCAS)
+                    coroutineScope.launch { state.close() }
+                }) {
+
+
+                    Icon(
+                        //imageVector = Icons.Filled.DateRange,
+                        painter = painterResource(id = R.drawable.checklist),
+                        contentDescription = "d",
+                        modifier = Modifier.size(40.dp),
+                        tint = getTint(telaFinancasSelect))
+
+                    Text(
+                        color = getTint(telaFinancasSelect),
+                        text = "Finanças", fontSize = 30.sp,
                         modifier = Modifier.padding(30.dp, 5.dp)
                     )
                 }
             }
         },
-        content = { PlannerNavHost(navController, state) }
+        content = {
+            PlannerNavHost(navController, state)
+        }
     )
 }
 
@@ -135,32 +150,33 @@ private fun PlannerNavHost(
 ) {
     NavHost(
         navController = navController,
-        startDestination = PlannerRotas.TelaPrincipalA
+        startDestination = PlannerRotas.TELA_TAREFAS
     ) {
-        composable(PlannerRotas.TelaPrincipalA) {
-            TelaPrincipalA(state)
+        composable(PlannerRotas.TELA_TAREFAS) {
+            TarefasNavHost(state)
         }
-        composable(PlannerRotas.Tela2) {
-            TelaDois(state)
+        composable(PlannerRotas.TELA_PROJETOS) {
+            TelaProjetos(state)
         }
-        composable(PlannerRotas.Tela3) {
-            TelaTres(state)
+        composable(PlannerRotas.TELA_FINANCAS) {
+            TelaFinancas(state)
         }
+
     }
 }
 
 fun getTint(selected: Boolean): Color {
     if (selected){
         return Color.Black
-    }else{
+    } else{
         return Color.DarkGray
     }
 }
 
 fun getBack(selected: Boolean): Color {
     if (selected){
-        return Color.LightGray
-    }else{
+        return Color.Yellow
+    } else{
         return Color.Transparent
     }
 }

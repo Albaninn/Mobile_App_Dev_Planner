@@ -1,4 +1,4 @@
-package br.edu.up.plannerapp.ui.screens
+package br.edu.up.plannerapp.ui.screens.financas
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -14,23 +14,25 @@ import androidx.compose.ui.unit.sp
 import br.edu.up.plannerapp.ui.screens.util.PlannerBottomBar
 import br.edu.up.plannerapp.ui.screens.util.PlannerTopBar
 
+
 @Composable
-fun TelaTres(state: DrawerState){
+fun TelaFinancas(state: DrawerState){
     Scaffold(
         topBar = { PlannerTopBar(state) },
-        content = { p -> ConteudoPaginaTres(Modifier.padding(p)) },
-        floatingActionButton = { FloatingButton() },
+        content = { p -> ConteudoDaPaginaTres(Modifier.padding(p)) },
+        floatingActionButton = {  },
         bottomBar = { PlannerBottomBar() }
     )
 //    { p -> ConteudoDaPagina(Modifier.padding(p)) }
 }
+
 @Composable
-fun ConteudoPaginaTres(padding: Modifier){
+fun ConteudoDaPaginaTres(modifier: Modifier){
     Column (
         modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
-        Text(text = "Página 3", fontSize = 50.sp)
+        Text(text = "Tela finanças", fontSize = 50.sp)
     }
 }

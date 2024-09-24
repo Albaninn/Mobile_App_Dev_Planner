@@ -28,6 +28,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PlannerTopBar(state: DrawerState){
+
     val scope = rememberCoroutineScope()
     //TopAppBar(
     CenterAlignedTopAppBar(
@@ -63,7 +64,7 @@ fun PlannerTopBar(state: DrawerState){
             }
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = colorResource(id = R.color.azul) //  Color(0xFF2196F3)
+            containerColor = colorResource(id = R.color.azul)
         )
     )
 }
